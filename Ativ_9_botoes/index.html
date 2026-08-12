@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+var tempoAnimacao = 1000;
+    
+$(document).ready(function(){
+
+  $("#velocidade-atual").text(tempoAnimacao + " ms");
+
+  $("#maisRapido").click(function(){
+    if (tempoAnimacao > 100) {
+      tempoAnimacao -= 200;
+      $("#velocidade-atual").text(tempoAnimacao + " ms");
+    } else {
+      alert("Já está na velocidade máxima!");
+    }
+  });
+
+  $("#maisLento").click(function(){
+    if (tempoAnimacao < 5000) {
+      tempoAnimacao += 200;
+      $("#velocidade-atual").text(tempoAnimacao + " ms");
+    } else {
+      alert("Já está muito lento!");
+    }
+  });
+
+
+  $("#show").click(function(){
+    $("img").show(tempoAnimacao);
+  });
+
+  $("#hide").click(function(){
+    $("img").hide(tempoAnimacao);
+  });
+
+  $("#toggle").click(function(){
+    $("img").toggle(tempoAnimacao);
+  });
+
+  $("#fadeTo").click(function(){
+    $("img").fadeTo(tempoAnimacao,0.75);
+  });
+
+  $("#FadeToggle").click(function(){
+    $("img").fadeToggle(tempoAnimacao);
+  });
+
+  $("#SlideToggle").click(function(){
+    $("img").slideToggle(tempoAnimacao);
+  });
+
+  $("#Animate").click(function(){
+    $("img").animate({left: '250px'}, tempoAnimacao);
+  });
+
+  $("#fadeout").click(function(){
+    $("img").fadeOut(tempoAnimacao)
+  });
+
+  $("#Fadein").click(function(){
+    $("img").fadeIn(tempoAnimacao)
+  });
+
+
+
+
+});
+</script>
+</head>
+<body>
+
+
+    <br><br>
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyanFqMHM5ajRrY29uaDVseWxlajRuYXRnNWJuYjR6OWRmZndqbWRwayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uLuxOl1gHL28eS37b3/giphy_s.gif" alt="Descrição da foto" width="300" height="200" style="position: relative;">
+
+<div style="  position: fixed;
+bottom: 650px;
+right: 1300px;">
+
+<div style="margin-bottom: 10px;">
+  <strong>Tempo:</strong> <span id="velocidade-atual"></span>
+  <button id="maisRapido"> Mais Rápido</button>
+  <button id="maisLento"> Mais Lento</button>
+</div>
+
+<button id="hide">Hide</button>
+<button id="show">Show</button>
+<button id="toggle">Toggle</button>
+<button id="fadeTo">Fade_to</button>
+<button id="FadeToggle">FadeToggle</button>
+<button id="SlideToggle">SlideTogggle</button>
+<button id="Animate">Animate</button>
+<button id="fadeout">Fadeout</button>
+<button id="Fadein">fadein</button>
+
+</div>
+
+
+
+</body>
+</html>
