@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro Simples</title>
+    <title>Calculadora Simples</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,6 +33,7 @@
         .btn-group {
             display: flex;
             gap: 10px;
+            margin-bottom: 10px;
         }
 
         button {
@@ -58,29 +59,30 @@
 
 <body>
 
-    <h2>Cadastro</h2>
+    <h2>Calculadora</h2>
 
     <form id="meuFormulario">
         <div class="form-group">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+            <label for="numero1">Número 1:</label>
+            <input type="text" id="numero1" name="numero1" placeholder="Digite o primeiro número">
         </div>
 
         <div class="form-group">
-            <label for="telefone">Telefone:</label>
-            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
-        </div>
-
-        <div class="form-group">
-            <label for="gmail">Gmail:</label>
-            <input type="email" id="gmail" name="gmail" placeholder="exemplo@gmail.com">
+            <label for="numero2">Número 2:</label>
+            <input type="text" id="numero2" name="numero2" placeholder="Digite o segundo número">
         </div>
 
         <div class="btn-group">
-           
-            <button type="button" class="btn-gravar" id="btnGravar">Gravar</button>
+            <button type="button" class="btn-gravar btn-operacao" data-operacao="somar">+</button>
+            <button type="button" class="btn-gravar btn-operacao" data-operacao="subtrair">-</button>
+            <button type="button" class="btn-gravar btn-operacao" data-operacao="multiplicar">*</button>
+            <button type="button" class="btn-gravar btn-operacao" data-operacao="dividir">/</button>
+        </div>
+
+        <div class="btn-group">
             <button type="button" class="btn-limpar" id="btnLimpar">Limpar</button>
         </div>
+
         <div id="texto">
             <p>resultados: </p>
         </div>
@@ -91,41 +93,35 @@
     <script>
     $(document).ready(function () {
 
-        $('#btnGravar').on('click', function () {
-            
-            var nome = $('#nome').val();
-            var telefone = $('#telefone').val();
-            var gmail = $('#gmail').val();
+        $('.btn-operacao').on('click', function () {
+            var n1 = $('#numero1').val();
+            var n2 = $('#numero2').val();
+            var op = $(this).data('operacao');
 
-            $.ajax({
-                url: "script.php",
-                type: "POST",
-                data: {
-                    nome: nome,      
-                    telefone: telefone,
-                    email: gmail
-                },
-                dataType: "html"
-
-            }).done(function (resposta) {
-                console.log(resposta);
-                $('#texto').html('<p>resultados: ' + resposta + '</p>');
-
-            }).fail(function (jqXHR, textStatus) {
-                console.log("Request failed: " + textStatus);
-                $('#texto').html('<p style="color:red;">Erro ao enviar os dados.</p>');
-                
-            }).always(function () {
-                console.log("completou");
-            });
+        $.ajax({
+            url: "php.php", 
+            type: "POST",
+            data: {
+                numero1: n1,
+                numero2: n2,
+                operacao: op
+            },
+            dataType: "html"
+        }).done(function (resposta) {
+            $('#texto').html('<p>resultados: ' + resposta + '</p>');
+        }).fail(function () {
+            $('#texto').html('<p style="color:red;">Erro ao calcular.</p>');
+        });
         });
 
         $('#btnLimpar').on('click', function () {
             $('#meuFormulario')[0].reset();
             $('#texto').html('<p>resultados: </p>'); 
-            $('#nome').focus();
+            $('#numero1').focus();
         });
+
     });
     </script>
 </body>
+
 </html>
