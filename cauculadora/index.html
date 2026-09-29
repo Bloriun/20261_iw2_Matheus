@@ -54,6 +54,19 @@
             background-color: #dc3545;
             color: white;
         }
+
+        #texto {
+            margin-top: 20px;
+        }
+
+        #historico {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        #historico li {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 
@@ -84,7 +97,8 @@
         </div>
 
         <div id="texto">
-            <p>resultados: </p>
+            <h3>Histórico</h3>
+            <ol id="historico"></ol>
         </div>
     </form>
 
@@ -92,6 +106,13 @@
 
     <script>
     $(document).ready(function () {
+        var historico = [];
+        var simbolos = {
+            somar: '+',
+            subtrair: '-',
+            multiplicar: '*',
+            dividir: '/'
+        };
 
         $('.btn-operacao').on('click', function () {
             var n1 = $('#numero1').val();
@@ -108,18 +129,21 @@
             },
             dataType: "html"
         }).done(function (resposta) {
-            $('#texto').html('<p>resultados: ' + resposta + '</p>');
+            var operacao = n1 + ' ' + simbolos[op] + ' ' + n2 + ' = ' + resposta;
+
+            historico.push(operacao);
+            $('#historico').append('<li>' + operacao + '</li>');
         }).fail(function () {
-            $('#texto').html('<p style="color:red;">Erro ao calcular.</p>');
+            $('#texto').prepend('<p style="color:red;">Erro ao calcular.</p>');
         });
         });
 
         $('#btnLimpar').on('click', function () {
             $('#meuFormulario')[0].reset();
-            $('#texto').html('<p>resultados: </p>'); 
+            historico = [];
+            $('#historico').html('');
             $('#numero1').focus();
         });
-
     });
     </script>
 </body>
