@@ -1,7 +1,7 @@
 <?php
 $endereco = "localhost";
-$banco = "meubanco";
-$porta = "3307";
+$banco = "test";
+$porta = "3306";
 $usuario = "root";
 $senha = "usbw";
 ?>
